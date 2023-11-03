@@ -8,7 +8,7 @@ import { CorouselItem } from '../../asset/components/corousel/CorouselItem';
 import { ListData } from '../../asset/components/RanderList/ListData';
 import { useSearchMovieQuery } from '../../services/movie/search-data-movie';
 import { useDispatch, useSelector } from 'react-redux';
-import { LogOut } from '../../redux/actions/authLogin';
+import { LogOut, getMeData } from '../../redux/actions/authLogin';
 import { searchAndNavigate, searchMovie } from '../../redux/actions/AuthMovies';
 import { NavigationBar } from '../../asset/components/navigation/NavigationBar1';
 
@@ -16,19 +16,20 @@ export const SearchPage = () => {
     const { query } = useParams();
     const [PageNow, setPageNow] = useState(1);
     const dispatch = useDispatch()
-    const { data: Paijo, isSuccess } = useGetDataUser({});
+    const dataMe = useSelector((store) => store.me)
     const searchQuery = useSelector((store) => store.search.searchData);
 
    
    
 
     useEffect(() => {
+        dispatch(getMeData())
         if (query !== undefined) { // Cek apakah 'query' sudah terdefinisi
             const page = PageNow;
             const queryValue = query || '';
             dispatch(searchMovie(page, queryValue));
         }
-    },[dispatch, PageNow, query, Paijo]);
+    },[dispatch, PageNow, query]);
 
     return (
         <div className="bg-[#1e1e2a]">
@@ -42,7 +43,7 @@ export const SearchPage = () => {
                     </h1>
                 </div>
 
-                <div className="mx-auto mt-10 px-4">
+                <div className="mx-auto mt-10 px-4 ">
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 ">
                         {searchQuery && searchQuery.data ? ( // Memeriksa apakah searchQuery dan searchQuery.data terdefinisi
                             searchQuery.data.map(movie => (
@@ -50,7 +51,9 @@ export const SearchPage = () => {
                             ))
                         ) : 
                         (
-                            <p>Loading data...</p> 
+                            
+                            <h1 className='text-white text-xl font-bold text-center'> loading ...</h1>
+                            
                         )}
                     </div>
                     

@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { searchAndNavigate } from '../../../redux/actions/AuthMovies';
 import { LogOut } from '../../../redux/actions/authLogin';
+import UserIcon from '../user icon/IconUser';
 
 export const NavigationBar = () => {
     const [SearchDataMovie, setSearchDataMovie] = useState('');
@@ -32,11 +33,17 @@ export const NavigationBar = () => {
                     </button>
                     </form>
                 </div>
+
+                <UserIcon />
+                    
                 <div className='gap-3'>
                     <button onClick={()=>{
                     dispatch(LogOut())
-                    }} className="text-white w-[6rem] h-[2.5rem] rounded-full font-semibold bg-red-500">Logout</button>
+                    }} className="text-white w-[6rem] h-[2.5rem] rounded-full font-semibold bg-red-500">
+                        Logout
+                    </button>
                 </div>
+                
             </div>
         </div>
     )

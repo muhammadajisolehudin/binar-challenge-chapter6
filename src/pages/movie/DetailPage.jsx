@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { useGetDataUser } from '../../services/auth/get_user';
-import { LogOut } from '../../redux/actions/authLogin';
+import { LogOut, getMeData } from '../../redux/actions/authLogin';
 import { useDispatch, useSelector } from 'react-redux';
 import { dataMovieDetail } from '../../redux/actions/AuthMovies';
 import { NavigationBar } from '../../asset/components/navigation/NavigationBar1';
@@ -12,8 +12,7 @@ export const DetailPage = () => {
     console.log(movies)
     const { id } = useParams();
     const dispatch = useDispatch()
-    
-    const { data: Paijo, isError, status } = useGetDataUser({});
+    const dataMe = useSelector((store) => store.me)
 
     const getDataMovieById = async () => {
         const data = await dispatch(dataMovieDetail(id))
@@ -22,7 +21,8 @@ export const DetailPage = () => {
     //untuk melakukan tindakan saat pertama dijalankan atau di mounting
     useEffect(()=>{
         getDataMovieById()
-    }, [Paijo])
+        dispatch(getMeData())
+    }, [])
 
 
   return (
