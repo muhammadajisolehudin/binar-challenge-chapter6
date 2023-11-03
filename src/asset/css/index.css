@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html::-webkit-scrollbar {
+    width: 0.3rem;
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: red;
+}
+
+.hero {
+    display: flex;
+    height: 100vh;
+    background-image: url("../img/background_movie.png");
+    background-size: cover;
+}
