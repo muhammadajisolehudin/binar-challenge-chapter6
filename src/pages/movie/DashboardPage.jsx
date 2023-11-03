@@ -7,6 +7,7 @@ import { ListData } from '../../asset/components/RanderList/ListData';
 import { useDispatch, useSelector } from 'react-redux';
 import { dataMovie, searchAndNavigate } from '../../redux/actions/AuthMovies';
 import { NavigationBar } from '../../asset/components/navigation/NavigationBar1';
+import { getMeData } from '../../redux/actions/authLogin';
 // import { NavigationBar } from '../../asset/components/navigation/NavigationBar';
 // // import { searchMovie } from '../../services/movie/search-data-movie';
 
@@ -16,13 +17,19 @@ export const DashboardPage = () => {
 //console.log (movies)
 const [PageNow, setPageNow] = useState(1);
 const dispatch = useDispatch  ()
-const { data: Paijo, isError, status } = useGetDataUser({});
+// const { data: Paijo, isError, status } = useGetDataUser({});
 //const { data: popularMovie } = useMovieDataPopularQuery(PageNow);
 
+//get me ini
+// console.log(Paijo)
 
 const getDataMovie = async () => {
   const data = await dispatch(dataMovie(PageNow))
 } 
+const getMe = async () => {
+  const data = await dispatch(getMeData())
+} 
+
 
  
   const movies = useSelector((store) => store.movies.movie)
@@ -34,7 +41,7 @@ const getDataMovie = async () => {
 useEffect(()=>{
   getDataMovie()
   //console.log(popularMovie, "ini datanya")
-}, [Paijo, PageNow])
+}, [PageNow, getMe()])
 
 
   return (
@@ -65,9 +72,7 @@ useEffect(()=>{
                 <CorouselItem key={movie.id} id={movie.id} overview={movie.overview} backdrop_path={movie.backdrop_path} runtime={movie.runtime} title={movie.title} releaseDate={movie.release_date} posterPath={movie.poster_path} />
               ))
             ) : (
-              <div className='flex flex-col justify-center items-center mt-80'>
-                <h className="text-white font-semibold text-2xl ">Loading...</h>
-              </div>
+              null
             )}
           </Carousel>
         </div>

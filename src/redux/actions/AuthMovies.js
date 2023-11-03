@@ -6,6 +6,7 @@ import { setMovie } from "../reducers/movie/authMovieSlice";
 import { reduxMovieDetail } from "../../services/movie/get-data-movie-detail";
 import { setSearchData } from "../reducers/movie/searchMovieSlice";
 import { reduxMovieSearch } from "../../services/movie/search-data-movie";
+import { setDetail } from "../reducers/movie/detailMovieSlice";
 
 
 // default setupnya redux bawan dari redux kalo kita mau pakek dispath
@@ -19,21 +20,23 @@ export const dataMovie = (page) => async (dispatch) => {
 
     });
     
-//      try {
-//     const result = await http3.get(`${API_ENDPOINTS.POPULAR_MOVIE}?page=${page}`);
-//     dispatch(setMovie(result.data.data));
-//   } catch (err) {
-//     // Handle error jika diperlukan
-//   }
 }
 
+
+
 export const dataMovieDetail = (id) => (dispatch) => {
+    
+
+     console.log(id,"idnya loh ini")
     return reduxMovieDetail(id).then((result) => {
-        return dispatch(setMovie(result.data.data));
+        console.log(result)
+        return dispatch(setDetail(result.data.data));
+        
     }).catch((err) => {
         
-
+        console.log(err, "ini salah ")
     });
+    
 }
 
 //melakukan navigasi dan menerima parameter
@@ -48,7 +51,6 @@ export const searchMovie = (page, query) => async (dispatch) => {
     }).catch((err) => {
         
     });
-
 };
 
 // export default dataMovie

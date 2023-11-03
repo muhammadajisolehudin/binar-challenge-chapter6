@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom';
-import { CookieKeys, CookieStorage } from '../../utils/cookies';
-import { useNavigate } from 'react-router-dom';
-import { fetchDataMovieDetail, useMovieDataDetailQuery } from '../../services/movie/get-data-movie-detail';
 import { useGetDataUser } from '../../services/auth/get_user';
 import { LogOut } from '../../redux/actions/authLogin';
 import { useDispatch, useSelector } from 'react-redux';
-import { dataMovieDetail, searchAndNavigate } from '../../redux/actions/AuthMovies';
+import { dataMovieDetail } from '../../redux/actions/AuthMovies';
 import { NavigationBar } from '../../asset/components/navigation/NavigationBar1';
 
 export const DetailPage = () => {
-
-    const movies = useSelector((store) => store.movies.movie)
+    // const movies = useSelector((store) => store.movies.movie)
+    const movies = useSelector((store) => store.detail.detail)
+    console.log(movies)
     const { id } = useParams();
-    const dispatch = useDispatch() 
+    const dispatch = useDispatch()
+    
     const { data: Paijo, isError, status } = useGetDataUser({});
 
     const getDataMovieById = async () => {
